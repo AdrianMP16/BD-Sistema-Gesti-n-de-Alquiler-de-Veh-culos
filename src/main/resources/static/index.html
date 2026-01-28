@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Alquiler de Vehículos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+<div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+        Contratos Activos
+    </h2>
+
+    <button
+            onclick="cargar()"
+            class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition mb-4">
+        Cargar contratos
+    </button>
+
+    <ul id="lista" class="space-y-2 text-gray-700">
+        <!-- contratos -->
+    </ul>
+</div>
+
+<script>
+    function cargar() {
+        fetch("http://localhost:8080/contratos/activos")
+            .then(r => r.json())
+            .then(data => {
+                const ul = document.getElementById("lista");
+                ul.innerHTML = "";
+                data.forEach(c => {
+                    ul.innerHTML += `
+                        <li class="bg-gray-50 border rounded-lg p-3 shadow-sm">
+                            <span class="font-semibold">${c[1]}</span> - ${c[2]}
+                        </li>`;
+                });
+            });
+    }
+</script>
+
+</body>
+</html>
